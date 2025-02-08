@@ -1,0 +1,59 @@
+---
+import client from '../lib/prismic'
+import { PrismicImage, PrismicRichText, PrismicText } from '@prismicio/react'
+
+const result = await client.getAllByType('product')
+
+const products = result.map((product) => {
+	const uid = product.uid
+	const name = product.data.name
+	const description = product.data.description
+	const gallery = product.data.gallery
+
+	return { uid, name, description, gallery }
+})
+
+console.log(products[0].description)
+---
+
+<section>
+	{
+		products.map((product) => (
+			<article>
+				<PrismicImage field={product.gallery[0]} />
+
+				<div class='info'>
+					<PrismicText field={product.name} />
+					<div class='richtext'>
+						<PrismicRichText field={product.description} />
+					</div>
+				</div>
+			</article>
+		))
+	}
+</section>
+
+<style>
+	section {
+		display: flex;
+		gap: 30px;
+		margin: 50px 10%;
+	}
+
+	article {
+		display: flex;
+		width: 300px;
+		flex-direction: column;
+		background-color: #300871;
+		border-radius: 5px;
+		color: #f2d9ff;
+	}
+
+	.info {
+		padding: 20px;
+	}
+
+	.richtext :global(ul) {
+    background-color: red;
+  }
+</style>
