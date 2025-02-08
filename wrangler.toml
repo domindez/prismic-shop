@@ -1,0 +1,3 @@
+name = "prismic-shop"             # el nombre que prefieras
+compatibility_date = "2023-01-01"    # ajusta la fecha si quieres otra
+main = "dist/_worker.js"       # la ruta al Worker que produce Astro
