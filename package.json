@@ -9,8 +9,8 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^12.2.1",
     "@astrojs/react": "^4.2.0",
-    "@astrojs/vercel": "^8.0.6",
     "@prismicio/client": "^7.16.0",
     "@prismicio/react": "^3.0.0",
     "@types/react": "^19.0.8",
@@ -18,5 +18,8 @@
     "astro": "^5.2.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "wrangler": "^3.107.3"
   }
 }
