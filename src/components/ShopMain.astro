@@ -13,17 +13,21 @@ const products = result.map((product) => {
 	return { uid, name, description, gallery }
 })
 
-console.log(products[0].description)
+console.log(result[1].data.gallery)
 ---
 
 <section>
 	{
 		products.map((product) => (
 			<article>
-				<PrismicImage field={product.gallery[0]} />
+				<div class='img'>
+					<PrismicImage field={product.gallery[0].image.thumbnail} />
+				</div>
 
 				<div class='info'>
-					<PrismicText field={product.name} />
+					<h1>
+						<PrismicText field={product.name} />
+					</h1>
 					<div class='richtext'>
 						<PrismicRichText field={product.description} />
 					</div>
@@ -44,9 +48,10 @@ console.log(products[0].description)
 		display: flex;
 		width: 300px;
 		flex-direction: column;
-		background-color: #300871;
+		background-color: #150331;
 		border-radius: 5px;
-		color: #f2d9ff;
+		color: #ffffff;
+		border: 1px solid #1f0745;
 	}
 
 	.info {
@@ -54,6 +59,26 @@ console.log(products[0].description)
 	}
 
 	.richtext :global(ul) {
-    background-color: red;
-  }
+		margin-left: 20px;
+	}
+
+	.richtext :global(p) {
+		margin-bottom: 10px;
+	}
+
+	.richtext :global(a) {
+		color: #ffffff;
+		text-decoration: none;
+	}
+
+	.img :global(img) {
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
+	}
+
+	h1 {
+		font-size: 1em;
+		font-weight: bold;
+		margin-bottom: 20px;
+	}
 </style>
