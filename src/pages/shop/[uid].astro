@@ -1,0 +1,28 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import client from '../../lib/prismic'
+
+const { uid } = Astro.params
+
+if (!uid) throw Astro.redirect('/404')
+
+try {
+	const result = await client.getByUID('product', uid)
+	console.log('result :>> ', result)
+} catch (error) {
+	return Astro.redirect('/404')
+
+}
+
+---
+
+<Layout>
+	<section></section>
+</Layout>
+
+<style>
+	section {
+		margin: 50px 10%;
+		color: #7a9ccc;
+	}
+</style>

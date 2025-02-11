@@ -1,6 +1,6 @@
 ---
 import client from '../lib/prismic'
-import { PrismicImage, PrismicRichText, PrismicText } from '@prismicio/react'
+import { PrismicImage, PrismicText } from '@prismicio/react'
 
 const result = await client.getAllByType('product')
 
@@ -8,9 +8,10 @@ const products = result.map((product) => {
 	const uid = product.uid
 	const name = product.data.name
 	const description = product.data.description
+	const price = product.data.price
 	const gallery = product.data.gallery
 
-	return { uid, name, description, gallery }
+	return { uid, name, description, gallery, price }
 })
 
 console.log(result[1].data.gallery)
@@ -19,20 +20,23 @@ console.log(result[1].data.gallery)
 <section>
 	{
 		products.map((product) => (
-			<article>
-				<div class='img'>
-					<PrismicImage field={product.gallery[0].image.thumbnail} />
-				</div>
-
-				<div class='info'>
-					<h1>
-						<PrismicText field={product.name} />
-					</h1>
-					<div class='richtext'>
-						<PrismicRichText field={product.description} />
+			<a href={`shop/${product.uid}`}>
+				<article>
+					<div class='img'>
+						<PrismicImage field={product.gallery[0].image.thumbnail} />
 					</div>
-				</div>
-			</article>
+
+					<div class='info'>
+						<h1>
+							<PrismicText field={product.name} />
+						</h1>
+						<div class='price'>{product.price}€</div>
+						{/* <div class='richtext'>
+						<PrismicRichText field={product.description} />
+					</div> */}
+					</div>
+				</article>
+			</a>
 		))
 	}
 </section>
@@ -44,41 +48,56 @@ console.log(result[1].data.gallery)
 		margin: 50px 10%;
 	}
 
+	a{
+		text-decoration: none;
+	}
+
 	article {
 		display: flex;
 		width: 300px;
 		flex-direction: column;
-		background-color: #150331;
+		background-color: #071321;
 		border-radius: 5px;
-		color: #ffffff;
-		border: 1px solid #1f0745;
+		color: #7a9ccc;
+		border: 1px solid #1a3657;
+		transition: 0.3s ease-in-out;
+	}
+
+	article:hover {
+		transform: scale(1.03);
 	}
 
 	.info {
 		padding: 20px;
+		display: flex;
+		justify-content: space-between;
+		gap: 20px;
+		flex-direction: column;
 	}
 
-	.richtext :global(ul) {
-		margin-left: 20px;
+	.price {
+		height: fit-content;
+		width: fit-content;
 	}
 
-	.richtext :global(p) {
+	/* .richtext :global(p) {
 		margin-bottom: 10px;
-	}
+	} */
 
-	.richtext :global(a) {
-		color: #ffffff;
-		text-decoration: none;
+	.img {
+		display: flex;
 	}
 
 	.img :global(img) {
 		border-top-left-radius: 5px;
 		border-top-right-radius: 5px;
+		width: 100%;
+		height: auto;
+		object-fit: cover;
 	}
 
 	h1 {
 		font-size: 1em;
 		font-weight: bold;
-		margin-bottom: 20px;
 	}
 </style>
