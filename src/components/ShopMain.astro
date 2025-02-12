@@ -1,10 +1,10 @@
 ---
 import client from '../lib/prismic'
 import { PrismicImage, PrismicText } from '@prismicio/react'
-
+import type { IProduct } from '../types/IProduct.ts';
 const result = await client.getAllByType('product')
 
-const products = result.map((product) => {
+const products: IProduct[] = result.map((product) => {
 	const uid = product.uid
 	const name = product.data.name
 	const description = product.data.description
@@ -14,7 +14,7 @@ const products = result.map((product) => {
 	return { uid, name, description, gallery, price }
 })
 
-console.log(result[1].data.gallery)
+console.log(result[0].data.gallery[0])
 ---
 
 <section>
@@ -48,7 +48,7 @@ console.log(result[1].data.gallery)
 		margin: 50px 10%;
 	}
 
-	a{
+	a {
 		text-decoration: none;
 	}
 
