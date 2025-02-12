@@ -20,7 +20,7 @@ const products: IProduct[] = result.map((product) => {
 	<section>
 		{
 			products.map((product) => (
-				<a href={`shop/${product.uid}`}>
+				<a href={`item/${product.uid}`}>
 					<article>
 						<PrismicImage field={product.gallery[0].image.thumbnail} />
 						<div class='info'>
