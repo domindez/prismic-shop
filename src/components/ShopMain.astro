@@ -1,7 +1,7 @@
 ---
 import client from '../lib/prismic'
 import { PrismicImage, PrismicText } from '@prismicio/react'
-import type { IProduct } from '../types/IProduct.ts';
+import type { IProduct } from '../types/IProduct.ts'
 const result = await client.getAllByType('product')
 
 const products: IProduct[] = result.map((product) => {
@@ -22,9 +22,7 @@ console.log(result[0].data.gallery[0])
 		products.map((product) => (
 			<a href={`shop/${product.uid}`}>
 				<article>
-					<div class='img'>
-						<PrismicImage field={product.gallery[0].image.thumbnail} />
-					</div>
+					<PrismicImage field={product.gallery[0].image.thumbnail} />
 
 					<div class='info'>
 						<h1>
@@ -43,9 +41,10 @@ console.log(result[0].data.gallery[0])
 
 <style>
 	section {
-		display: flex;
-		gap: 30px;
 		margin: 50px 10%;
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+		gap: 30px;
 	}
 
 	a {
@@ -54,7 +53,6 @@ console.log(result[0].data.gallery[0])
 
 	article {
 		display: flex;
-		width: 300px;
 		flex-direction: column;
 		background-color: #071321;
 		border-radius: 5px;
@@ -84,11 +82,7 @@ console.log(result[0].data.gallery[0])
 		margin-bottom: 10px;
 	} */
 
-	.img {
-		display: flex;
-	}
-
-	.img :global(img) {
+	img {
 		border-top-left-radius: 5px;
 		border-top-right-radius: 5px;
 		width: 100%;

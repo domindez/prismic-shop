@@ -1,28 +1,91 @@
 ---
+import { PrismicImage, PrismicRichText, PrismicText } from '@prismicio/react'
 import Layout from '../../layouts/Layout.astro'
 import client from '../../lib/prismic'
+import type { IProduct } from '../../types/IProduct.ts'
+import type { PrismicDocument } from '@prismicio/client'
 
 const { uid } = Astro.params
 
 if (!uid) throw Astro.redirect('/404')
 
+let product: IProduct
 try {
 	const result = await client.getByUID('product', uid)
-	console.log('result :>> ', result)
+	product = {
+		uid: result.uid,
+		name: result.data.name,
+		description: result.data.description,
+		price: result.data.price,
+		gallery: result.data.gallery,
+	}
 } catch (error) {
 	return Astro.redirect('/404')
-
 }
-
 ---
 
 <Layout>
-	<section></section>
+	<section>
+		<article>
+			<div class='gallery'>
+				<div class='main-img'>
+					<PrismicImage field={product.gallery[0].image} />
+				</div>
+				<div class='thumbnails'>
+					{product.gallery.slice(1).map((item) => <PrismicImage field={item.image.thumbnail} />)}
+				</div>
+			</div>
+
+			<div class='info'>
+				<h1>
+					<PrismicText field={product.name} />
+				</h1>
+				<div class='price'>{product.price}€</div>
+				<div class='richtext'>
+					<PrismicRichText field={product.description} />
+				</div>
+			</div>
+		</article>
+	</section>
 </Layout>
 
 <style>
 	section {
 		margin: 50px 10%;
 		color: #7a9ccc;
+	}
+
+	article {
+		display: flex;
+		gap: 30px;
+	}
+
+	.gallery {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+	}
+
+	.main-img {
+		height: 70vh;
+		width: 70vh;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		overflow: hidden;
+		border: 1px solid #1a3657;
+		border-radius: 5px;
+	}
+
+	.main-img img {
+		height: 100%;
+		width: 100%;
+		object-fit: contain;
+	}
+
+	.thumbnails {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+		gap: 10px;
 	}
 </style>
