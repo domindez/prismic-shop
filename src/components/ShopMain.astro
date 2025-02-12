@@ -13,8 +13,6 @@ const products: IProduct[] = result.map((product) => {
 
 	return { uid, name, description, gallery, price }
 })
-
-console.log(result[0].data.gallery[0])
 ---
 
 <section>
@@ -23,15 +21,11 @@ console.log(result[0].data.gallery[0])
 			<a href={`shop/${product.uid}`}>
 				<article>
 					<PrismicImage field={product.gallery[0].image.thumbnail} />
-
 					<div class='info'>
 						<h1>
 							<PrismicText field={product.name} />
 						</h1>
 						<div class='price'>{product.price}€</div>
-						{/* <div class='richtext'>
-						<PrismicRichText field={product.description} />
-					</div> */}
 					</div>
 				</article>
 			</a>

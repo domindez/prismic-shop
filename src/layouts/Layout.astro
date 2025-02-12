@@ -1,6 +1,8 @@
 ---
 import Header from '../components/Header.astro'
 import '@fontsource-variable/fira-code';
+import { ClientRouter } from 'astro:transitions'
+
 ---
 
 <!doctype html>
@@ -11,6 +13,7 @@ import '@fontsource-variable/fira-code';
 		<link rel='icon' type='image/svg+xml' href='/favicon.svg' />
 		<meta name='generator' content={Astro.generator} />
 		<title>Tienda Prismic</title>
+		<ClientRouter />
 	</head>
 	<body>
 		<Header />
